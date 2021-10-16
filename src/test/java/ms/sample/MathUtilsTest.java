@@ -1,20 +1,25 @@
 package ms.sample;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class MathUtilsTest {
 
 	 MathUtils mathUtils;
 	
-	@BeforeAll
+	@BeforeAll//annotaion to execute test method before all other test methods
 	public  void init() {
 		mathUtils=new MathUtils();
 	}
@@ -32,9 +37,9 @@ class MathUtilsTest {
 	@Test
 	void testDevide() {		
 		
-		assertThrows(NullPointerException.class,()-> mathUtils.devide(1, 0),"Devide by zero error");
+		assertThrows(ArithmeticException.class,()-> mathUtils.devide(100,0),"Devide by zero error");
 		
-		//fail();
+		//fail()
 	}	
 	
 	@Test
@@ -49,6 +54,32 @@ class MathUtilsTest {
 	void testDisabled() {
 		
 		fail("Failed");
+	}
+	
+	@Test
+	@EnabledOnOs(OS.LINUX)//Annotation for executing test method only in specific OS 
+	@DisplayName("Test method only for linux")
+	public void testOnlyInLinux() {
+		
+		System.out.println("Test method only for linux");
+	}
+	
+	@Test
+	@EnabledOnOs(OS.WINDOWS)
+	@DisplayName("Test method only for windows")
+	public void testOnlyInWindows() {
+		
+		System.out.println("Test method only for windows");
+	}
+	
+	@Test
+	@DisplayName("Assume sample")
+	public void assumeExample() {
+		boolean flag=true;
+		
+		assumeTrue(flag);//act as a if condition. code below this statement will execute only if the flag is true
+		System.out.println("Flag is true");
+		
 	}
 	
 	
