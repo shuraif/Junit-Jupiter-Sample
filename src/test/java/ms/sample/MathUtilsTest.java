@@ -10,12 +10,14 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@DisplayName("When running MathUtil")
 class MathUtilsTest {
 
 	 MathUtils mathUtils;
@@ -25,14 +27,27 @@ class MathUtilsTest {
 		mathUtils=new MathUtils();
 	}
 	
-	@Test
-	@DisplayName("Testing add method")//display name annotation is used to specify name to the test method
-	void testAdd() {		
-		int expected=2;
-		int actual=mathUtils.add(1, 1);
+	
+	@Nested//nested annotation is used for grouping test method in nested group
+	@DisplayName("add method")
+	class TestAdd{
 		
-		assertEquals(expected,actual,"The add method should add two numbers");
-	}	
+		@Test
+		@DisplayName("Testing for +ve numbers")//display name annotation is used to specify name to the test method
+		void testAdd() {		
+			int expected=2;
+			int actual=mathUtils.add(1, 1);
+			
+			assertEquals(expected,actual,"should return the right sum");
+		}
+		
+		@Test
+		@DisplayName("Testing for -ve numbers")
+		void testAddNeagtive() {		
+			
+			assertEquals(-2,mathUtils.add(-1, -1),"should return the right sum");
+		}
+	}
 	
 	
 	@Test
