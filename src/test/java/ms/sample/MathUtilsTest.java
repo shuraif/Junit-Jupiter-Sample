@@ -1,5 +1,6 @@
 package ms.sample;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -40,6 +41,18 @@ class MathUtilsTest {
 		assertThrows(ArithmeticException.class,()-> mathUtils.devide(100,0),"Devide by zero error");
 		
 		//fail()
+	}	
+	
+	@Test
+	@DisplayName("Multiply method")
+	public void testMultiply() {		
+			
+		assertAll(
+				()->assertEquals(4, mathUtils.multiply(2, 2)),
+				()->assertEquals(6, mathUtils.multiply(2, 3)),
+				()->assertEquals(21, mathUtils.multiply(7, 3))
+						
+				);
 	}	
 	
 	@Test
